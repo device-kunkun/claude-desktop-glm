@@ -1,0 +1,9 @@
+2026-09-22T04:06:11.2163354+08:00 extracting to Program Files\OpenSSH
+2026-09-22T04:06:11.8499389+08:00 install-sshd (registers sshd + ssh-agent services)
+2026-09-22T04:06:15.1810692+08:00 firewall rule created
+2026-09-22T04:06:15.9917958+08:00 sshd: Running
+2026-09-22T04:06:15.9917958+08:00 generating bridge keypair
+2026-09-22T04:06:16.1787996+08:00 authorized_keys installed (Admin)
+2026-09-22T04:06:16.7520888+08:00 host IPv4: 192.168.176.105, 100.116.254.119
+2026-09-22T04:06:16.7560913+08:00 bridge README written
+2026-09-22T04:06:16.7580870+08:00 DONE

@@ -1,7 +1,6 @@
-# Claude Desktop 2.9939.2.0 full patch kit
-# gates: discovery filter / picker filter / session resolvers x2 + fuse flip + cowork-svc jne patch + resign
+# Claude Desktop 2.7032.0.0 full patch kit (asar 4 gates + fuse + svc + resign)
 $ErrorActionPreference = 'Stop'
-$log = 'C:\Users\Admin\.zcode\workspace\default\claude-desktop-glm\patch-29939-result.txt'
+$log = 'C:\Users\Admin\.zcode\workspace\default\claude-desktop-glm\patch-27032-result.txt'
 $pkg = Get-AppxPackage -Name Claude
 $res = Join-Path $pkg.InstallLocation 'app\resources'
 $asar = Join-Path $res 'app.asar'
@@ -14,26 +13,26 @@ function L($m) { Add-Content -Path $log -Value ("{0} {1}" -f (Get-Date -Format o
 $enc = [System.Text.Encoding]::GetEncoding(28591)
 
 try {
-  L 'kill app + service'
+  L 'kill app'
   Get-Process claude, cowork-svc -ErrorAction SilentlyContinue |
     Where-Object { $_.Path -like '*WindowsApps*' } | Stop-Process -Force
-  try { Stop-Service CoworkVMService -Force -ErrorAction SilentlyContinue } catch {}
   Start-Sleep -Seconds 3
 
-  Copy-Item $asar (Join-Path $bakDir 'app.asar.official-2.9939.bak') -Force
-  Copy-Item $claudeExe (Join-Path $bakDir 'claude.exe.official-2.9939.bak') -Force
-  Copy-Item $svcExe (Join-Path $bakDir 'cowork-svc.exe.official-2.9939.bak') -Force
+  # ---- backups ----
+  Copy-Item $asar (Join-Path $bakDir 'app.asar.official-2.7032.bak') -Force
+  Copy-Item $claudeExe (Join-Path $bakDir 'claude.exe.official-2.7032.bak') -Force
+  Copy-Item $svcExe (Join-Path $bakDir 'cowork-svc.exe.official-2.7032.bak') -Force
   L 'backups saved'
 
-  takeown /f $asar | Out-Null;  icacls $asar /grant '*S-1-5-32-544:F' | Out-Null
+  takeown /f $asar | Out-Null;  icacls $asar | Out-Null;  icacls $asar /grant '*S-1-5-32-544:F' | Out-Null
   takeown /f $claudeExe | Out-Null; icacls $claudeExe /grant '*S-1-5-32-544:F' | Out-Null
   takeown /f $svcExe | Out-Null;  icacls $svcExe /grant '*S-1-5-32-544:F' | Out-Null
 
-  # ---- asar 4 gates (2.9939.2.0 patterns) ----
+  # ---- asar 4 gates ----
   $text = $enc.GetString([System.IO.File]::ReadAllBytes($asar))
   $pairs = @(
-    @{ orig = '!Yo(t.id)&&!n'; repl = '!1&Yo(t.id)&n' },
-    @{ orig = 'Xo(e,t.id).ok'; repl = '""+Xo(e,t.id)' },
+    @{ orig = '!qo(t.id)&&!n'; repl = '!1&qo(t.id)&n' },
+    @{ orig = 'Jo(e,t.id).ok'; repl = '""+Jo(e,t.id)' },
     @{ orig = 'i.ok?e:(N.warn(`[resolveSessionModel]'; repl = '!0+0?e:(N.warn(`[resolveSessionModel]' },
     @{ orig = 'a.ok?e:(N.warn(`[resolveCodeSessionModel]'; repl = '!0+0?e:(N.warn(`[resolveCodeSessionModel]' }
   )
@@ -106,7 +105,7 @@ try {
 
   L 'starting service'
   Start-Service CoworkVMService -ErrorAction SilentlyContinue
-  Start-Sleep -Seconds 3
+  Start-Sleep -Seconds 2
   L ('service: ' + (Get-Service CoworkVMService).Status)
   L 'ALL DONE'
   exit 0

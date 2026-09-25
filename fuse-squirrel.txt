@@ -1,0 +1,2 @@
+2026-09-22T22:51:17.9504037+08:00 states before: 010011011
+2026-09-22T22:51:17.9654248+08:00 ERROR: 使用“2”个参数调用“WriteAllBytes”时发生异常:“文件“C:\Users\Admin\AppData\Local\AnthropicClaude\app-2.2553.1\claude.exe”正由另一进程使用，因此该进程无法访问此文件。”
