@@ -1,0 +1,12 @@
+gate1 discovery: patched at 0xe26c87 (b'!So(t.id)&&!n'...)
+gate2 picker: patched at 0xe95856 (b'Co(e,t.id).ok'...)
+b'[resolveSessionModel]': resolver neutralized at 0x115a162
+b'[resolveCodeSessionModel]': resolver neutralized at 0x11ac151
+asar 4 gates applied
+fuse before: 010011011
+fuse flipped
+svc candidate sites: 1
+svc site: 0x4fff14 ctx: 000000752c488b4018488b9ab0000000e8872eb0ff0f1f800000000084c00f8560020000488b4424
+svc patched
+verify asar=True resolver=True fuse=True svc=True
+ALL DONE
